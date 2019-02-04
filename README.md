@@ -10,8 +10,8 @@ It includes all the features of it's predecessor and much more
 ### Features
 *  Graphical interface to allow you to select themes
 *  Download themes directy from the internet (**Wi-Fi mod required**)
-*  Theme randomizer (Off by default)
-*  Audio randomizer on home folder (Off by default)
+*  Theme randomizer (**Off by default**)
+*  Audio randomizer on home folder (**Off by default**)
 *  Set theme per folder (keeping the same the per sub-folder)
 *  Custom fonts per theme
 *  Select a theme for the entire system
