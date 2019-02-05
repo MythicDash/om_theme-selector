@@ -170,8 +170,6 @@ themeLoader() {
 			rename "$sprite_path/nes.png" "$sprite_path/hvc.png"
 			rename "$sprite_path/nes.json" "$sprite_path/hvc.json"
 			rename "$script_path/colors_nes.lua" "$script_path/colors_hvc.lua"
-		else
-			echo "Nothing to see here!"
 		fi
 
 		echo "#!/bin/sh
