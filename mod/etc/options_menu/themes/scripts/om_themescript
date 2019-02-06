@@ -50,18 +50,19 @@ themeSelector() {
 	local activeFolder="CLV-S-00$folderId"
 	local last_theme="$statePath/lastTheme"
 	local selected_theme="$statePath/activeTheme"
-	local thmOverlay="$mountpoint/etc/options_menu/themes/scripts/om_overlay"
+	# local thmOverlay="$mountpoint/etc/options_menu/themes/scripts/om_overlay"
 	[ -f "$last_theme" ] && local prevTheme=$(cat "$last_theme")
 	local gStorage="$(findGameStorage)"
 	local theme="CHANGEME"
 	local fullPath="$themePath/$theme"
 
-	if grep -q -w "$theme" "$thmOverlay"; then
-		echo "$theme" >"$last_theme"
-		echo "$fullPath" >"$selected_theme"
-		mountpoint -q "$cloverTheme" && umount "$cloverTheme"
-		[ -d "$fullPath" ] && mount -t overlayfs -o lowerdir="$cloverTheme",upperdir="$fullPath" overlayfs "$cloverTheme"
-	else
+	# if grep -q -w "$theme" "$thmOverlay"; then
+	# if [ "$theme" = "chrono_trigger" ]; then
+		# echo "$theme" >"$last_theme"
+		# echo "$fullPath" >"$selected_theme"
+		# mountpoint -q "$cloverTheme" && umount "$cloverTheme"
+		# [ -d "$fullPath" ] && mount -t overlayfs -o lowerdir="$cloverTheme",upperdir="$fullPath" overlayfs "$cloverTheme"
+	# else
 		find "$gStorage" -maxdepth 3 -type f -name "$activeFolder.desktop" | sort -u | while IFS= read -r desktopFile; do
 			cd "$gStorage" || exit
 			for i in $(find . -type d -name "$activeFolder" | sed "s|^\./||"); do
@@ -93,9 +94,9 @@ themeSelector() {
 					while [ "$theme" == "$prevTheme" ] && [ "$n" -lt 3 ]; do
 						n=$((n + 1))
 						theme="$(find "$themePath" -maxdepth 1 -type d | shuf | head -n1 | xargs -n 1 basename)"
-						while [ "$theme" == "chrono_trigger" ]; do
-							theme="$(find "$themePath" -maxdepth 1 -type d | shuf | head -n1 | xargs -n 1 basename)"
-						done
+						# while [ "$theme" == "chrono_trigger" ]; do
+						# 	theme="$(find "$themePath" -maxdepth 1 -type d | shuf | head -n1 | xargs -n 1 basename)"
+						# done
 					done
 				fi
 			fi
@@ -122,9 +123,12 @@ themeSelector() {
 			else
 				umount "$cloverAudio/bgm_boot.wav"
 				umount "$cloverAudio/bgm_home.wav"
+				cd "$themePath/$prevTheme" && find ./* -type f -name "*.wav" | cut -c3- | while IFS= read -r audio; do
+					umount "$cloverTheme/$audio"
+				done
 			fi
 
-			if [ "$prevTheme" != "$sfregion" ]; then
+			# if [ "$prevTheme" != "$sfregion" ]; then
 				cd "$themePath/$prevTheme" && find ./* -type f ! -name "*.wav" ! -path "./xtras/*" ! -path "./fonts/*" | cut -c3- | while IFS= read -r uFile; do
 					umount "$cloverTheme/$uFile"
 				done
@@ -132,8 +136,8 @@ themeSelector() {
 				cd "$fullPath" && find . -type f ! -path "./xtras/*" ! -path "./fonts/*" | while IFS= read -r tfile; do
 					mount_bind "$fullPath/$tfile" "$cloverTheme/$tfile"
 				done
-			fi
+			# fi
 			cd - >/dev/ || exit
 		done
-	fi
+	# fi
 }
