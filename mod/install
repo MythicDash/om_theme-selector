@@ -43,7 +43,8 @@ del "$rootfs/chmenu_backup"
 del "$rootfs/b8025_fontfix_backup"
 
 find "$hmod_dir" -type f -name "*andomiz*" -print0 -exec rm -f {} \;
-find "$hmod_dir" -type f -name "*advanced_music_hack" -print0 -exec rm -f {} \;
+# find "$hmod_dir" -type f -name "*advanced_music_hack" -print0 -exec rm -f {} \;
+find "$hmod_dir" -type f -name "*[Aa]dvanced_[Mm]usic_[Hh]ack*" -print0 -exec rm -f {} \;
 # Marks this mod as uninstalled
 unset cfg_theme_randomizR_enabled
 
