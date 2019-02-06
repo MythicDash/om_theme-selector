@@ -111,7 +111,8 @@ themeSelector() {
 					[ ! -d "$musicPath" ] && musicPath="$rootfs/usr/share/music_menu"
 
 					if [ -n "$(ls -A $musicPath)" ]; then
-						local wavFile="$(find "$musicPath" -maxdepth 1 -type f | shuf | head -n1 | xargs -n 1 basename)"
+						# local wavFile="$(find "$musicPath" -maxdepth 1 -type f | shuf | head -n1 | xargs -n 1 basename)"
+						local wavFile="$(cd "$musicPath" && find * -maxdepth 1 -type f -name "*.[Ww][Aa][Vv]" | shuf | head -n1)"
 						local bgmHome="$musicPath/$wavFile"
 						if [ "$sftype" = "nes" ]; then
 							[ -f "$bgmHome" ] && music_hack_bind "$bgmHome" "$bgmHome" "$cloverAudio"
