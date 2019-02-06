@@ -59,6 +59,7 @@ themeSetting="$omModSettingsCmds/c0000_themerandomizer"
 disableAudioSetting="$omModSettingsCmds/_audiorandomizer"
 disableThemeSetting="$omModSettingsCmds/_themerandomizer"
 thm_chk="$mountpoint$profilepath/$modname/activeTheme"
+thmOverlay="$omModScripts/om_overlay"
 
 # SHARED
 usb_path="$mountpoint/media/$modname"
@@ -158,7 +159,12 @@ themeLoader() {
 		fi
 
 		[ ! -f "$omModSpacer" ] && touch "$omModSpacer"
+		if grep -q -w "$thm" "$thmOverlay"; then
+		# if [ "$thm" = "chrono_trigger" ]; then
+		sed -r "s/theme=\"CHANGEME\"/theme=\"${thm}\"/g;" "$omModScripts/om_overlaythmcript" >"$thm_script"
+		else
 		sed -r "s/theme=\"CHANGEME\"/theme=\"${thm}\"/g;" "$omModScripts/om_themescript" >"$thm_script"
+		fi
 		remove "$cmd_list"
 		touch "$cmd_list"
 
