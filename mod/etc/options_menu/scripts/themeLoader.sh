@@ -50,7 +50,9 @@ if [ -f "$b_file" ] || [ -f "$p_file" ]; then
 else
 	rename "$enableSettings" "$disableSettings"
 fi
-if grep -q "chrono" "$thm_chk"; then
+
+while IFS='' read -r advThm || [ -n "$advThm" ]; do
+    if grep -q "$advThm" "$thm_chk"; then
 	rename "$audioSetting" "$disableAudioSetting"
 	rename "$themeSetting" "$disableThemeSetting"
 	rename "$advancedMusicHack" "$disableAdvancedMusicHack"
@@ -59,5 +61,6 @@ else
 	rename "$disableThemeSetting" "$themeSetting"
 	rename "$disableAdvancedMusicHack" "$advancedMusicHack"
 fi
+done < "$thmOverlay"
 
 usleep 50000 && $optionsMenu/options --commandPath $omModCommands/ --scriptPath $omModScripts --title "$omTitle" &
