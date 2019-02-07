@@ -27,7 +27,7 @@ if [ $has_theme != 0 ]; then
 	done
 fi
 
-nc -z 8.8.8.8 53  >/dev/null 2>&1
+nc -z 8.8.8.8 53 >/dev/null 2>&1
 if [ $? -eq 0 ]; then
 	rename "$disableDownloads" "$enableDownloads"
 else
@@ -53,9 +53,11 @@ fi
 if grep -q "chrono" "$thm_chk"; then
 	rename "$audioSetting" "$disableAudioSetting"
 	rename "$themeSetting" "$disableThemeSetting"
+	rename "$advancedMusicHack" "$disableAdvancedMusicHack"
 else
 	rename "$disableAudioSetting" "$audioSetting"
 	rename "$disableThemeSetting" "$themeSetting"
+	rename "$disableAdvancedMusicHack" "$advancedMusicHack"
 fi
 
 usleep 50000 && $optionsMenu/options --commandPath $omModCommands/ --scriptPath $omModScripts --title "$omTitle" &

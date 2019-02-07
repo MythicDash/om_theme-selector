@@ -59,6 +59,10 @@ themeSetting="$omModSettingsCmds/c0000_themerandomizer"
 disableAudioSetting="$omModSettingsCmds/_audiorandomizer"
 disableThemeSetting="$omModSettingsCmds/_themerandomizer"
 thm_chk="$mountpoint$profilepath/$modname/activeTheme"
+advancedMusicHack="$omModSettingsCmds/c0000_audiorandomizerall"
+disableAdvancedMusicHack="$omModSettingsCmds/c0000_audiorandomizerall"
+# uninstaller="$omModCommands/c0000_options2"
+# uninstallerOff="$omModCommands/_options2"
 thmOverlay="$omModScripts/om_overlay"
 
 # SHARED
